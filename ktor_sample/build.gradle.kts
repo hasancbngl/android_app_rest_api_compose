@@ -18,6 +18,7 @@ dependencies {
     implementation("io.ktor:ktor-server-netty:2.2.2")
     //logback helps to see logs
     implementation("ch.qos.logback:logback-classic:1.4.5")
+    implementation("io.ktor:ktor-server-call-logging-jvm:2.2.2")
     //test
     testImplementation(kotlin("test"))
 }
