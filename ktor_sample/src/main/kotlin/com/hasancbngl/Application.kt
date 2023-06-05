@@ -1,17 +1,16 @@
 package com.hasancbngl
 
 import io.ktor.http.*
-import io.ktor.server.plugins.contentnegotiation.*
 import io.ktor.serialization.kotlinx.json.*
 import io.ktor.server.application.*
+import io.ktor.server.html.*
 import io.ktor.server.http.content.*
 import io.ktor.server.plugins.callloging.*
 import io.ktor.server.plugins.contentnegotiation.*
-import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
+import kotlinx.html.*
 import kotlinx.serialization.Serializable
-import org.slf4j.event.*
 
 //specify server engine
 fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)
@@ -82,18 +81,33 @@ data class Person(
     val name: String,
     val age: Int
 )
+
 //static content and displaying resources
 @Suppress("unused")
-fun Application.module3(){
+fun Application.module3() {
     routing {
-        static{
+        static {
             //adding static content resources
-         /*   resource("ktor.html")
-            resource("text.txt") */
+            /*   resource("ktor.html")
+               resource("text.txt") */
             //or just specify a folder as static
             resources("static")
             get("/text") {
                 call.respondRedirect("text.txt")
+            }
+            get("welcome") {
+                call.respondHtml {
+                    head {
+                        title { +"custom title" }
+                    }
+                    body {
+                        h1 { +"Just basic header" }
+                        br { +"" }
+                        p { + "This is a beginning of a paragraph.custom directory is: ${
+                            System.getProperty("user.dir")
+                        }" }
+                    }
+                }
             }
         }
     }

@@ -23,6 +23,7 @@ dependencies {
     implementation("ch.qos.logback:logback-classic:1.4.5")
     implementation("io.ktor:ktor-server-call-logging-jvm:2.2.2")
     implementation("io.ktor:ktor-serialization:1.9.0-Beta")
+    implementation("io.ktor:ktor-server-html-builder:2.2.2")
     //test
     testImplementation(kotlin("test"))
 }
