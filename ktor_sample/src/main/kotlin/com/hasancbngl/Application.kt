@@ -4,6 +4,7 @@ import io.ktor.http.*
 import io.ktor.server.plugins.contentnegotiation.*
 import io.ktor.serialization.kotlinx.json.*
 import io.ktor.server.application.*
+import io.ktor.server.http.content.*
 import io.ktor.server.plugins.callloging.*
 import io.ktor.server.plugins.contentnegotiation.*
 import io.ktor.server.request.*
@@ -81,3 +82,19 @@ data class Person(
     val name: String,
     val age: Int
 )
+//static content and displaying resources
+@Suppress("unused")
+fun Application.module3(){
+    routing {
+        static{
+            //adding static content resources
+         /*   resource("ktor.html")
+            resource("text.txt") */
+            //or just specify a folder as static
+            resources("static")
+            get("/text") {
+                call.respondRedirect("text.txt")
+            }
+        }
+    }
+}
