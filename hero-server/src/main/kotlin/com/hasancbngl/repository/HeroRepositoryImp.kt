@@ -4,8 +4,15 @@ import com.hasancbngl.models.ApiResponse
 import com.hasancbngl.models.Hero
 
 class HeroRepositoryImp : HeroRepository {
-    override val heroes: Map<Int, List<Hero>>
-        get() = TODO("Not yet implemented")
+    override val heroes: Map<Int, List<Hero>> by lazy {
+        mapOf(
+            1 to page1,
+            2 to page2,
+            3 to page3,
+            4 to page4,
+            5 to page5,
+        )
+    }
 
     override val page1 = listOf(
         Hero(
