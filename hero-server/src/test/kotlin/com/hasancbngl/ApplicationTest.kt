@@ -145,6 +145,34 @@ class ApplicationTest {
             )
         }
 
+    @Test
+    fun `access search heroes endpoint, query non existing hero, assert empty list as a result`() =
+        testApplication {
+            val response = client.get("/heroes/search?name=hasan")
+            assertEquals(
+                expected = HttpStatusCode.OK,
+                actual = response.status
+            )
+            val expected = ApiResponse(
+                message = "ok",
+                success = true,
+                heroes = emptyList()
+            )
+            val actual = Json.decodeFromString<ApiResponse>(response.bodyAsText())
+            assertEquals(
+                expected = expected,
+                actual = actual
+            )
+        }
+
+    @Test
+    fun `access non existing endpoint,assert not found`() =
+        testApplication {
+            val response = client.get("/unknown")
+            assertEquals(expected = HttpStatusCode.NotFound, actual = response.status)
+            assertEquals(expected = "Page not found.", actual = response.bodyAsText())
+        }
+
     private fun calculatePage(page: Int): Map<String, Int?> {
         var prevPage: Int? = page
         var nextPage: Int? = page
