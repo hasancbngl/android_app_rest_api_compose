@@ -7,10 +7,9 @@ import io.ktor.server.application.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import org.koin.ktor.ext.inject
-import java.lang.NumberFormatException
 
 fun Route.getAllHeroes() {
-    val heroRepository : HeroRepository by inject()
+    val heroRepository: HeroRepository by inject()
 
     get("/heroes") {
         try {
@@ -27,7 +26,7 @@ fun Route.getAllHeroes() {
                 ),
                 status = HttpStatusCode.BadRequest
             )
-        } catch (e: Exception) {
+        } catch (e: IllegalArgumentException) {
             call.respond(
                 message = ApiResponse(
                     success = false,
