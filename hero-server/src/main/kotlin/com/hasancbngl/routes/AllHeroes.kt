@@ -30,7 +30,7 @@ fun Route.getAllHeroes() {
             call.respond(
                 message = ApiResponse(
                     success = false,
-                    message = "Heroes not found"
+                    message = "Page not found"
                 ),
                 status = HttpStatusCode.NotFound
             )
