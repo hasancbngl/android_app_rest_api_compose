@@ -95,6 +95,56 @@ class ApplicationTest {
             )
         }
 
+    @Test
+    fun `access search heroes endpoint, query hero name, assert single hero result`() =
+        testApplication {
+            val response = client.get("/heroes/search?name=sas")
+            assertEquals(
+                expected = HttpStatusCode.OK,
+                actual = response.status
+            )
+            val actual = Json.decodeFromString<ApiResponse>(response.bodyAsText()).heroes.size
+            assertEquals(
+                expected = 1,
+                actual=actual
+            )
+        }
+
+    @Test
+    fun `access search heroes endpoint, query hero name, assert multiple hero result`() =
+        testApplication {
+            val response = client.get("/heroes/search?name=as")
+            assertEquals(
+                expected = HttpStatusCode.OK,
+                actual = response.status
+            )
+            val actual = Json.decodeFromString<ApiResponse>(response.bodyAsText()).heroes.size
+            assertEquals(
+                expected =3,
+                actual=actual
+            )
+        }
+
+    @Test
+    fun `access search heroes endpoint, query an empty text assert empty list as a result`() =
+        testApplication {
+            val response = client.get("/heroes/search")
+            assertEquals(
+                expected = HttpStatusCode.OK,
+                actual = response.status
+            )
+            val expected = ApiResponse(
+                message = "ok",
+                success = true,
+                heroes = emptyList()
+            )
+            val actual = Json.decodeFromString<ApiResponse>(response.bodyAsText())
+            assertEquals(
+                expected = expected,
+                actual = actual
+            )
+        }
+
     private fun calculatePage(page: Int): Map<String, Int?> {
         var prevPage: Int? = page
         var nextPage: Int? = page
