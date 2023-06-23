@@ -22,8 +22,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.hasancbngl.herocomposeapp.domain.model.OnBoardingPage
+import com.hasancbngl.herocomposeapp.navigation.Screen
 import com.hasancbngl.herocomposeapp.presentation.screens.welcome.components.FinishButton
 import com.hasancbngl.herocomposeapp.presentation.screens.welcome.components.PagerScreen
 import com.hasancbngl.herocomposeapp.ui.theme.EXTRA_LARGE_PADDING
@@ -33,7 +35,10 @@ import com.hasancbngl.herocomposeapp.ui.theme.welcomeScreenBackgroundColor
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun WelcomeScreen(navController: NavHostController) {
+fun WelcomeScreen(
+    navController: NavHostController,
+    welcomeViewModel: WelcomeViewModel = hiltViewModel()
+) {
     val pages = listOf(
         OnBoardingPage.First,
         OnBoardingPage.Second,
@@ -56,15 +61,17 @@ fun WelcomeScreen(navController: NavHostController) {
         ) { index ->
             PagerScreen(page = pages[index])
         }
-        Column(modifier = Modifier
-            .fillMaxWidth()
-            .weight(1f)
-            .padding(
-                bottom = 24.dp,
-                start = EXTRA_LARGE_PADDING,
-                end = EXTRA_LARGE_PADDING
-            ),
-        horizontalAlignment = Alignment.CenterHorizontally) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .weight(1f)
+                .padding(
+                    bottom = 24.dp,
+                    start = EXTRA_LARGE_PADDING,
+                    end = EXTRA_LARGE_PADDING
+                ),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
             Row(
                 horizontalArrangement = Arrangement.Center
             ) {
@@ -83,9 +90,12 @@ fun WelcomeScreen(navController: NavHostController) {
                 }
             }
             Spacer(modifier = Modifier.height(24.dp))
-            AnimatedVisibility(visible = pagerState.currentPage==pages.lastIndex) {
-                FinishButton{
-
+            AnimatedVisibility(visible = pagerState.currentPage == pages.lastIndex) {
+                FinishButton {
+                    navController.navigate(Screen.Home.route){
+                        popUpTo(Screen.Home.route)
+                    }
+                    welcomeViewModel.saveOnBoardingState(true)
                 }
             }
         }

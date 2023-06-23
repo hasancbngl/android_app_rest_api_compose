@@ -11,6 +11,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -21,14 +23,20 @@ import androidx.compose.ui.modifier.modifierLocalConsumer
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import com.hasancbngl.herocomposeapp.R
+import com.hasancbngl.herocomposeapp.navigation.Screen
 import com.hasancbngl.herocomposeapp.ui.theme.Purple40
 import com.hasancbngl.herocomposeapp.ui.theme.Purple80
 
 @Composable
-fun SplashScreen(navController: NavHostController) {
+fun SplashScreen(navController: NavHostController,
+                 splashViewModel: SplashViewModel = hiltViewModel()
+                 ) {
+    val onBoardingComplete  by splashViewModel.onBoardingCompleted.collectAsState()
+
     val degrees = remember {
         Animatable(0f)
     }
@@ -43,6 +51,8 @@ fun SplashScreen(navController: NavHostController) {
                 delayMillis = 200
             )
         )
+        if (onBoardingComplete) navController.navigate(Screen.Home.route)
+        else navController.navigate(Screen.Welcome.route)
     }
 }
 
