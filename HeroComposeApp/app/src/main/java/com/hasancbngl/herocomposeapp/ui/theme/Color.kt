@@ -18,4 +18,24 @@ val DarkGray = Color(0xFF2A2A2A)
 
 val ColorScheme.welcomeScreenBackgroundColor
     @Composable
+    get() = if (!isSystemInDarkTheme()) Color.White else Color.Black
+
+val ColorScheme.titleColor
+    @Composable
+    get() = if (!isSystemInDarkTheme()) DarkGray else LightGray
+
+val ColorScheme.descriptionColor
+    @Composable
+    get() = if (!isSystemInDarkTheme()) DarkGray.copy(.4f) else LightGray
+
+val ColorScheme.activeIndicatorColor
+    @Composable
+    get() = if (!isSystemInDarkTheme()) Purple40 else Purple80
+
+val ColorScheme.inactiveIndicatorColor
+    @Composable
     get() = if (!isSystemInDarkTheme()) LightGray else DarkGray
+
+val ColorScheme.finishButtonBackgroundColor
+    @Composable
+    get() = if (!isSystemInDarkTheme()) Purple40 else Purple80

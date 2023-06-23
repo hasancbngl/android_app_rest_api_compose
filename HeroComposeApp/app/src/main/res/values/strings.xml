@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Hero Compose App</string>
     <string name="icon">icon\n</string>
+    <string name="finish">Finish</string>
 </resources>
