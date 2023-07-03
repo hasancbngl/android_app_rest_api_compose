@@ -1,6 +1,10 @@
 package com.hasancbngl.herocomposeapp.di
 
+import androidx.paging.ExperimentalPagingApi
+import com.hasancbngl.herocomposeapp.data.local.HeroDatabase
 import com.hasancbngl.herocomposeapp.data.remote.HeroApi
+import com.hasancbngl.herocomposeapp.data.repository.RemoteDataSourceImp
+import com.hasancbngl.herocomposeapp.domain.repository.RemoteDataSource
 import com.hasancbngl.herocomposeapp.util.Constants.BASE_URL
 import dagger.Module
 import dagger.Provides
@@ -34,5 +38,15 @@ object NetworkModule {
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
             .build().create(HeroApi::class.java)
+    }
+
+    @OptIn(ExperimentalPagingApi::class)
+    @Provides
+    @Singleton
+    fun provideRemoteDataSourceImp(api: HeroApi, db:HeroDatabase) : RemoteDataSource{
+        return RemoteDataSourceImp(
+            heroApi = api,
+            heroDb = db
+        )
     }
 }
