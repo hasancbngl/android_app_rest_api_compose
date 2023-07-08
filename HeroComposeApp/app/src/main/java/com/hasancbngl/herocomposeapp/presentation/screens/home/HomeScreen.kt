@@ -37,7 +37,7 @@ fun HomeScreen(
             modifier = Modifier.fillMaxSize(),
             contentAlignment = Alignment.Center
         ) {
-            RatingWidget(modifier = Modifier.padding(6.dp), rating = 3.0, starSize = 30.dp)
+            RatingWidget(modifier = Modifier.padding(6.dp), rating = 5.2, starSize = 30.dp)
         }
 
     }

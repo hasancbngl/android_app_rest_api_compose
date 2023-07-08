@@ -24,9 +24,9 @@ fun calculateStars(rating: Double): Map<String, Int> {
             if (lastNumber in 1..5) halfFilledStars.value++
             if (lastNumber in 6..9) filledStars.value++
             if (firstNumber == 5 && lastNumber > 0) {
-                filledStars.value = 5
+                emptyStars.value = 5
+                filledStars.value = 0
                 halfFilledStars.value = 0
-                emptyStars.value = 0
             }
         } else {
             Log.d("calculateStars", "Invalid rating number.")
