@@ -17,6 +17,7 @@ import androidx.compose.ui.graphics.drawscope.clipPath
 import androidx.compose.ui.graphics.vector.PathParser
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import com.hasancbngl.herocomposeapp.R
 import com.hasancbngl.herocomposeapp.ui.theme.LightGray
 
@@ -24,16 +25,16 @@ import com.hasancbngl.herocomposeapp.ui.theme.LightGray
 fun HalfFilledStar(
     starPath: Path,
     starPathBounds: Rect,
-    scaleFactor: Float = 2f
+    scaleFactor: Float,
+    starSize: Dp
 ) {
     val starColor = MaterialTheme.colorScheme.starColor
-    Canvas(modifier = Modifier.size(24.dp)) {
-        val canvasSize = this.size
+    Canvas(modifier = Modifier.size(starSize)) {
         scale(scaleFactor) {
             val pathWidth = starPathBounds.width
             val pathHeight = starPathBounds.height
-            val left = (canvasSize.width / 2f) - (pathWidth / 1.7f)
-            val top = (canvasSize.height / 2f) - (pathHeight / 1.7f)
+            val left = (size.width / 2f) - (pathWidth / 1.7f)
+            val top = (size.height / 2f) - (pathHeight / 1.7f)
             translate(left, top) {
                 drawPath(
                     path = starPath,
@@ -64,5 +65,9 @@ fun HalfFilledStarPreview() {
     val starPathBounds = remember {
         starPath.getBounds()
     }
-    HalfFilledStar(starPath = starPath, starPathBounds = starPathBounds)
+    HalfFilledStar(
+        starPath = starPath, starPathBounds = starPathBounds,
+        scaleFactor = 2f,
+        starSize = 30.dp
+    )
 }

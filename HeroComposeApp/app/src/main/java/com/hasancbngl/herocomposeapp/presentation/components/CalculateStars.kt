@@ -5,6 +5,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import com.hasancbngl.herocomposeapp.util.Constants.EMPTY_STARS
+import com.hasancbngl.herocomposeapp.util.Constants.FILLED_STARS
+import com.hasancbngl.herocomposeapp.util.Constants.HALF_FILLED_STARS
 
 @Composable
 fun calculateStars(rating: Double): Map<String, Int> {
@@ -31,8 +34,8 @@ fun calculateStars(rating: Double): Map<String, Int> {
     }
     emptyStars.value = maxStars.value - (filledStars.value + halfFilledStars.value)
     return mapOf(
-        "filledStars" to filledStars.value,
-        "halfFilledStars" to halfFilledStars.value,
-        "emptyStars" to emptyStars.value
+        FILLED_STARS to filledStars.value,
+        HALF_FILLED_STARS to halfFilledStars.value,
+        EMPTY_STARS to emptyStars.value
     )
 }

@@ -12,6 +12,7 @@ import androidx.compose.ui.graphics.drawscope.translate
 import androidx.compose.ui.graphics.vector.PathParser
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.hasancbngl.herocomposeapp.R
 import com.hasancbngl.herocomposeapp.ui.theme.LightGray
@@ -20,19 +21,18 @@ import com.hasancbngl.herocomposeapp.ui.theme.LightGray
 fun EmptyStar(
     starPath: Path,
     starPathBounds: Rect,
-    scaleFactor: Float
+    scaleFactor: Float,
+    starSize: Dp
 ) {
     Canvas(
         modifier = Modifier
-            .size(24.dp)
+            .size(starSize)
     ) {
-        val canvasSize = size
         scale(scale = scaleFactor) {
             val pathWidth = starPathBounds.width
             val pathHeight = starPathBounds.height
-            val left = (canvasSize.width / 2f) - (pathWidth / 1.7f)
-            val top = (canvasSize.height / 2f) - (pathHeight / 1.7f)
-
+            val left = (size.width / 2f) - (pathWidth / 1.7f)
+            val top = (size.height / 2f) - (pathHeight / 1.7f)
             translate(left = left, top = top) {
                 drawPath(
                     path = starPath,
@@ -43,7 +43,7 @@ fun EmptyStar(
     }
 }
 
-@Preview
+@Preview(showBackground = true)
 @Composable
 fun EmptyStarPreview() {
     val starPathString = stringResource(id = R.string.star_path)
@@ -54,5 +54,10 @@ fun EmptyStarPreview() {
         starPath.getBounds()
     }
 
-    EmptyStar(starPath = starPath, starPathBounds = starPathBounds, scaleFactor = 2f)
+    EmptyStar(
+        starPath = starPath,
+        starPathBounds = starPathBounds,
+        scaleFactor = 2f,
+        starSize = 30.dp
+    )
 }
