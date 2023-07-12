@@ -47,7 +47,7 @@ fun HeroItem(
         HeroItemImage(hero.image)
         Surface(
             modifier = Modifier
-                .fillMaxHeight(.4f)
+                .fillMaxHeight(.43f)
                 .fillMaxWidth()
                 .align(Alignment.BottomStart),
             color = Color.Black.copy(alpha = .5f),
@@ -64,7 +64,7 @@ fun HeroItem(
                 Text(
                     text = hero.name,
                     color = MaterialTheme.colorScheme.topAppBarContentColor,
-                    fontSize = 24.sp,
+                    fontSize = 22.sp,
                     fontWeight = FontWeight.Bold,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis
