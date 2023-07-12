@@ -20,7 +20,7 @@ import com.hasancbngl.herocomposeapp.util.Constants.HALF_FILLED_STARS
 fun RatingWidget(
     modifier: Modifier,
     rating: Double,
-    starSize:Dp,
+    starSize:Dp = 24.dp,
     scaleFactor: Float = 2f,
     spaceBetween: Dp = 6.dp,
 ) {
@@ -73,6 +73,6 @@ fun RatingWidget(
 
 @Preview(showBackground = true)
 @Composable
-fun RatingWidget() {
+fun RatingWidgetPreview() {
     RatingWidget(modifier = Modifier, rating = 3.5, starSize = 30.dp)
 }
