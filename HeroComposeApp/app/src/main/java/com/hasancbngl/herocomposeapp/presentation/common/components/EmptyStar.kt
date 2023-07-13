@@ -1,4 +1,4 @@
-package com.hasancbngl.herocomposeapp.presentation.components
+package com.hasancbngl.herocomposeapp.presentation.common.components
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.size

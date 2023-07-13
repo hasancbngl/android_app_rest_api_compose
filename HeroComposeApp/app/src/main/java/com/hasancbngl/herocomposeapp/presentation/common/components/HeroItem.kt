@@ -27,7 +27,6 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.hasancbngl.herocomposeapp.domain.model.Hero
 import com.hasancbngl.herocomposeapp.navigation.Screen
-import com.hasancbngl.herocomposeapp.presentation.components.RatingWidget
 import com.hasancbngl.herocomposeapp.ui.theme.HERO_ITEM_HEIGHT
 import com.hasancbngl.herocomposeapp.ui.theme.LARGE_PADDING
 import com.hasancbngl.herocomposeapp.ui.theme.MEDIUM_PADDING

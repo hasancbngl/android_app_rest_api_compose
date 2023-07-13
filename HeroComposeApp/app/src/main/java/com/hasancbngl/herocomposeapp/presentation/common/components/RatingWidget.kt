@@ -1,6 +1,5 @@
-package com.hasancbngl.herocomposeapp.presentation.components
+package com.hasancbngl.herocomposeapp.presentation.common.components
 
-import FilledStar
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.runtime.Composable
