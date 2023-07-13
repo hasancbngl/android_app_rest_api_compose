@@ -42,6 +42,7 @@ class ApplicationTest {
             )
             pages.forEach { page ->
                 val response = client.get("/heroes?page=$page")
+                val actual = Json.decodeFromString<ApiResponse>(response.bodyAsText())
                 assertEquals(
                     expected = HttpStatusCode.OK,
                     actual = response.status
@@ -51,9 +52,9 @@ class ApplicationTest {
                     message = "ok",
                     prevPage = calculatePage(page)["prevPage"],
                     nextPage = calculatePage(page)["nextPage"],
-                    heroes = heroes[page - 1]
+                    heroes = heroes[page - 1],
+                    lastUpdated = actual.lastUpdated
                 )
-                val actual = Json.decodeFromString<ApiResponse>(response.bodyAsText())
                 assertEquals(
                     expected = expected,
                     actual = actual
