@@ -30,7 +30,7 @@ import com.hasancbngl.herocomposeapp.ui.theme.ShimmerLightGray
 import com.hasancbngl.herocomposeapp.ui.theme.ShimmerMediumGray
 
 @Composable
-fun ShimmerItem(alpha:Float) {
+fun ShimmerItem(alpha: Float) {
     Surface(
         modifier = Modifier
             .fillMaxWidth()
@@ -65,7 +65,7 @@ fun ShimmerItem(alpha:Float) {
                 Spacer(modifier = Modifier.padding(all = EXTRA_SMALL_PADDING))
             }
             Row(modifier = Modifier.fillMaxWidth()) {
-                repeat(5){
+                repeat(5) {
                     Surface(
                         modifier = Modifier
                             .alpha(alpha = alpha)
@@ -84,11 +84,11 @@ fun ShimmerItem(alpha:Float) {
 @Preview
 @Composable
 fun ShimmerItemPreview() {
-    ShimmerItem(.8f)
+    AnimatedShimmerItem()
 }
 
 @Preview(uiMode = UI_MODE_NIGHT_YES)
 @Composable
 fun ShimmerItemDarkPreview() {
-    ShimmerItem(.8f)
+    AnimatedShimmerItem()
 }
