@@ -20,6 +20,15 @@ class HeroRemoteMediator @Inject constructor(
     private val heroDao = heroDb.heroDao()
     private val heroRemoteKeysDao = heroDb.heroRemoteKeysDao()
 
+    override suspend fun initialize(): InitializeAction {
+        val currentTime = System.currentTimeMillis()
+        val lastUpdated = heroRemoteKeysDao.getRemoteKeys(1)?.lastUpdated ?: 0L
+        val cacheTimeout = 1440
+        val diffInMinutes = (currentTime - lastUpdated) / 1000 / 60
+        return if (diffInMinutes.toInt() <= cacheTimeout) InitializeAction.SKIP_INITIAL_REFRESH
+        else InitializeAction.LAUNCH_INITIAL_REFRESH
+    }
+
     override suspend fun load(
         loadType: LoadType,
         state: PagingState<Int, Hero>
@@ -48,7 +57,7 @@ class HeroRemoteMediator @Inject constructor(
                 }
             }
 
-            val response = api.getAllHeroes(page =page)
+            val response = api.getAllHeroes(page = page)
             if (response.heroes.isNotEmpty()) {
                 heroDb.withTransaction {
                     if (loadType == LoadType.REFRESH) {
@@ -62,7 +71,7 @@ class HeroRemoteMediator @Inject constructor(
                             id = hero.id,
                             prevPage = prevPage,
                             nextPage = nextPage,
-                            lastUpdated = null
+                            lastUpdated = response.lastUpdated
                         )
                     }
                     heroRemoteKeysDao.addAllRemoteKeys(keys)
