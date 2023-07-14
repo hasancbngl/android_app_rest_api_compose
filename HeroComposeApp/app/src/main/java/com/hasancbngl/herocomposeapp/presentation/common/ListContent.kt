@@ -12,6 +12,7 @@ import androidx.paging.compose.LazyPagingItems
 import com.hasancbngl.herocomposeapp.domain.model.Hero
 import com.hasancbngl.herocomposeapp.presentation.common.components.HeroItem
 import com.hasancbngl.herocomposeapp.presentation.common.components.ShimmerEffect
+import com.hasancbngl.herocomposeapp.presentation.common.layout_error.ErrorScreen
 import com.hasancbngl.herocomposeapp.ui.theme.SMALL_PADDING
 
 @Composable
@@ -46,8 +47,13 @@ fun handlePagingResult(heroes: LazyPagingItems<Hero>): Boolean {
                 ShimmerEffect()
                 false
             }
-
-            error != null -> false
+            error != null -> {
+                ErrorScreen(error = error)
+                false
+            }
+            heroes.itemCount < 1 -> {
+                false
+            }
             else -> true
         }
     }

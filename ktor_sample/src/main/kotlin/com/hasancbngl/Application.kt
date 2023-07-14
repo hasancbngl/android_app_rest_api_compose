@@ -103,9 +103,21 @@ fun Application.module3() {
                     body {
                         h1 { +"Just basic header" }
                         br { +"" }
-                        p { + "This is a beginning of a paragraph.custom directory is: ${
-                            System.getProperty("user.dir")
-                        }" }
+                        p {
+                            +"This is a beginning of a paragraph.custom directory is: ${
+                                System.getProperty("user.dir")
+                            }"
+                        }
+                        br { +"" }
+                        h3 { +"H3 Title added" }
+                        h3 { +"H3 Title added" }
+                    }
+                }
+            }
+            get("welcome2") {
+                call.respondHtml {
+                    head {
+                        title { +"title" }
                     }
                 }
             }
