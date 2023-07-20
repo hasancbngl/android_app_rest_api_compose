@@ -8,6 +8,7 @@ import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.paging.compose.collectAsLazyPagingItems
+import com.hasancbngl.herocomposeapp.navigation.Screen
 import com.hasancbngl.herocomposeapp.presentation.screens.home.components.HomeScreenTopBar
 import com.hasancbngl.herocomposeapp.presentation.common.ListContent
 
@@ -21,7 +22,7 @@ fun HomeScreen(
     Scaffold(
         topBar = {
             HomeScreenTopBar {
-
+                navController.navigate(Screen.Search.route)
             }
         }
     ) { contentPadding ->

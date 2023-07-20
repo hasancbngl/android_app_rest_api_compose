@@ -7,6 +7,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.hasancbngl.herocomposeapp.presentation.screens.home.HomeScreen
+import com.hasancbngl.herocomposeapp.presentation.screens.search.SearchScreen
 import com.hasancbngl.herocomposeapp.presentation.screens.splash.SplashScreen
 import com.hasancbngl.herocomposeapp.presentation.screens.welcome.WelcomeScreen
 import com.hasancbngl.herocomposeapp.util.Constants.DETAILS_ARGUMENT_KEY
@@ -32,6 +33,8 @@ fun SetupNavGraph(navController: NavHostController) {
         ) {
 
         }
-        composable(route = Screen.Search.route) {}
+        composable(route = Screen.Search.route) {
+            SearchScreen(navController = navController)
+        }
     }
 }
