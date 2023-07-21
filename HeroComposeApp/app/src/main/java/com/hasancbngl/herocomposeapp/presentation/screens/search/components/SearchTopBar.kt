@@ -70,10 +70,8 @@ fun SearchTopBar(
                     IconButton(
                         modifier = Modifier.alpha(.7f),
                         onClick = {
-                            if (text.isNotEmpty()) {
-                                onTextChange("")
-                                onCloseClicked()
-                            } else onCloseClicked()
+                            if (text.isNotEmpty()) onTextChange("")
+                            else onCloseClicked()
                         },
                     ) {
                         Icon(

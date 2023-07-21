@@ -1,11 +1,13 @@
 package com.hasancbngl.herocomposeapp.data.repository
 
+import android.graphics.pdf.PdfDocument.Page
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.hasancbngl.herocomposeapp.data.local.HeroDatabase
 import com.hasancbngl.herocomposeapp.data.paging_source.HeroRemoteMediator
+import com.hasancbngl.herocomposeapp.data.paging_source.SearchHeroesSource
 import com.hasancbngl.herocomposeapp.data.remote.HeroApi
 import com.hasancbngl.herocomposeapp.domain.model.Hero
 import com.hasancbngl.herocomposeapp.domain.repository.RemoteDataSource
@@ -29,9 +31,11 @@ class RemoteDataSourceImp @Inject constructor(
         ).flow
     }
 
-    override fun searchHeroes(): Flow<PagingData<Hero>> {
-        TODO("Not yet implemented")
+    override fun searchHeroes(query: String): Flow<PagingData<Hero>> {
+        return Pager(
+            config = PagingConfig(3),
+            pagingSourceFactory = {
+                SearchHeroesSource(api = heroApi, query = query)
+            }).flow
     }
-
-
 }

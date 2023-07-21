@@ -11,11 +11,13 @@ class Repository @Inject constructor(
     private val dataStoreOperations: DataStoreOperations,
     private val remoteDataSourceImp: RemoteDataSource
 ) {
-
     fun getAllHeroes(): Flow<PagingData<Hero>> {
         return remoteDataSourceImp.getAllHeroes()
     }
 
+    fun searchHeroes(query:String): Flow<PagingData<Hero>> {
+       return remoteDataSourceImp.searchHeroes(query)
+    }
     suspend fun saveOnBoardingState(completed: Boolean) {
         dataStoreOperations.saveOnBoardingState(completed)
     }
