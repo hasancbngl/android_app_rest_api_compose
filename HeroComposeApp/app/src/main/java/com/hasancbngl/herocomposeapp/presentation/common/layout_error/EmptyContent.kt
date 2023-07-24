@@ -8,6 +8,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.pullrefresh.PullRefreshIndicator
+import androidx.compose.material.pullrefresh.pullRefresh
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -31,8 +34,10 @@ import com.hasancbngl.herocomposeapp.ui.theme.DarkGray
 import com.hasancbngl.herocomposeapp.ui.theme.LightGray
 import com.hasancbngl.herocomposeapp.ui.theme.NETWORK_ERROR_ICON_HEIGHT
 import com.hasancbngl.herocomposeapp.ui.theme.SMALL_PADDING
+import androidx.compose.material.pullrefresh.rememberPullRefreshState
 
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun EmptyContent(
     alphaAnim: Float,
@@ -41,14 +46,24 @@ fun EmptyContent(
     error: LoadState.Error? = null,
     heroes: LazyPagingItems<Hero>? = null
 ) {
-
+    val isRefreshing = remember {
+        mutableStateOf(false)
+    }
+    val refreshState = rememberPullRefreshState(refreshing = isRefreshing.value, onRefresh = {
+        isRefreshing.value = true
+        heroes?.refresh()
+        isRefreshing.value = false
+    })
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .pullRefresh(state = refreshState, enabled = error != null)
             .verticalScroll(rememberScrollState()),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
+        PullRefreshIndicator(refreshing = isRefreshing.value, state = refreshState)
+
         Icon(
             modifier = Modifier
                 .size(NETWORK_ERROR_ICON_HEIGHT)

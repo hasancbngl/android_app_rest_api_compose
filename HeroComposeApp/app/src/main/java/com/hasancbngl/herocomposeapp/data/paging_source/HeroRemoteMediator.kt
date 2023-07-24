@@ -6,6 +6,7 @@ import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
 import androidx.room.withTransaction
 import com.hasancbngl.herocomposeapp.data.local.HeroDatabase
+import com.hasancbngl.herocomposeapp.data.local.dao.HeroDao
 import com.hasancbngl.herocomposeapp.data.remote.HeroApi
 import com.hasancbngl.herocomposeapp.domain.model.Hero
 import com.hasancbngl.herocomposeapp.domain.model.HeroRemoteKeys
@@ -14,10 +15,10 @@ import javax.inject.Inject
 @OptIn(ExperimentalPagingApi::class)
 class HeroRemoteMediator @Inject constructor(
     private val api: HeroApi,
-    private val heroDb: HeroDatabase
+    private val heroDb: HeroDatabase,
+    private val dao: HeroDao
 ) : RemoteMediator<Int, Hero>() {
 
-    private val heroDao = heroDb.heroDao()
     private val heroRemoteKeysDao = heroDb.heroRemoteKeysDao()
 
     override suspend fun initialize(): InitializeAction {
@@ -61,7 +62,7 @@ class HeroRemoteMediator @Inject constructor(
             if (response.heroes.isNotEmpty()) {
                 heroDb.withTransaction {
                     if (loadType == LoadType.REFRESH) {
-                        heroDao.deleteAllHeroes()
+                        dao.deleteAllHeroes()
                         heroRemoteKeysDao.deleteAllRemoteKeys()
                     }
                     val prevPage = response.prevPage
@@ -75,7 +76,7 @@ class HeroRemoteMediator @Inject constructor(
                         )
                     }
                     heroRemoteKeysDao.addAllRemoteKeys(keys)
-                    heroDao.addHeroes(response.heroes)
+                    dao.addHeroes(response.heroes)
                 }
             }
             MediatorResult.Success(endOfPaginationReached = response.nextPage == null)

@@ -9,8 +9,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.hasancbngl.herocomposeapp.navigation.Screen
-import com.hasancbngl.herocomposeapp.presentation.screens.home.components.HomeScreenTopBar
 import com.hasancbngl.herocomposeapp.presentation.common.ListContent
+import com.hasancbngl.herocomposeapp.presentation.screens.home.components.HomeScreenTopBar
 
 @Composable
 fun HomeScreen(
@@ -18,7 +18,6 @@ fun HomeScreen(
     viewModel: HomeViewModel = hiltViewModel()
 ) {
     val allHeroes = viewModel.getAllHeroes.collectAsLazyPagingItems()
-
     Scaffold(
         topBar = {
             HomeScreenTopBar {

@@ -6,6 +6,7 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.hasancbngl.herocomposeapp.data.local.HeroDatabase
+import com.hasancbngl.herocomposeapp.data.local.dao.HeroDao
 import com.hasancbngl.herocomposeapp.data.paging_source.HeroRemoteMediator
 import com.hasancbngl.herocomposeapp.data.paging_source.SearchHeroesSource
 import com.hasancbngl.herocomposeapp.data.remote.HeroApi
@@ -17,10 +18,9 @@ import javax.inject.Inject
 @ExperimentalPagingApi
 class RemoteDataSourceImp @Inject constructor(
     private val heroApi: HeroApi,
+    private val heroDao: HeroDao,
     private val heroDb: HeroDatabase
 ) : RemoteDataSource {
-
-    val heroDao = heroDb.heroDao()
 
     override fun getAllHeroes(): Flow<PagingData<Hero>> {
         val pagingSourceFactory = { heroDao.getAllHeroes() }
