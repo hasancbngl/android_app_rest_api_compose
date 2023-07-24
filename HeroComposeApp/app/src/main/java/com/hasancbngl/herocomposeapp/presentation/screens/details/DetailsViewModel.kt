@@ -10,6 +10,9 @@ import com.hasancbngl.herocomposeapp.domain.model.Hero
 import com.hasancbngl.herocomposeapp.domain.use_cases.UseCases
 import com.hasancbngl.herocomposeapp.util.Constants.DETAILS_ARGUMENT_KEY
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -19,8 +22,8 @@ class DetailsViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
-    private val _selectedHero = mutableStateOf<Hero?>(null)
-    val selectedHero: State<Hero?> = _selectedHero
+    private val _selectedHero = MutableStateFlow<Hero?>(null)
+    val selectedHero: StateFlow<Hero?> = _selectedHero
 
     init {
         viewModelScope.launch {

@@ -1,6 +1,5 @@
 package com.hasancbngl.herocomposeapp.data.repository
 
-import android.graphics.pdf.PdfDocument.Page
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
@@ -26,7 +25,7 @@ class RemoteDataSourceImp @Inject constructor(
         val pagingSourceFactory = { heroDao.getAllHeroes() }
         return Pager(
             config = PagingConfig(3),
-            remoteMediator = HeroRemoteMediator(api = heroApi, heroDb = heroDb),
+            remoteMediator = HeroRemoteMediator(api = heroApi, heroDb = heroDb, dao = heroDao),
             pagingSourceFactory = pagingSourceFactory
         ).flow
     }
