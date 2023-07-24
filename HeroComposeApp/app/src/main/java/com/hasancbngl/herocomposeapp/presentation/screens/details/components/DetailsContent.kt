@@ -21,6 +21,8 @@ fun DetailsContent(navController: NavHostController, hero: Hero) {
             BottomSheetContent(hero = hero)
         }
     ) {
-
+        BackgroundContent(heroImage = hero.image) {
+            navController.popBackStack()
+        }
     }
 }
