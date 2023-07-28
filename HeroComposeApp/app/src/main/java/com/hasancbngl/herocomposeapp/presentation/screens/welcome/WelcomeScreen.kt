@@ -6,6 +6,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -14,6 +15,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.PageSize
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.MaterialTheme
@@ -45,7 +47,12 @@ fun WelcomeScreen(
         OnBoardingPage.Third,
     )
 
-    val pagerState = rememberPagerState()
+    val pagerState = rememberPagerState(
+        initialPage = 0,
+        initialPageOffsetFraction = 0f
+    ) {
+        pages.size
+    }
 
     Column(
         modifier = Modifier
@@ -53,14 +60,20 @@ fun WelcomeScreen(
             .background(MaterialTheme.colorScheme.welcomeScreenBackgroundColor)
     ) {
         HorizontalPager(
-            pageCount = pages.size, state = pagerState,
-            verticalAlignment = Alignment.Top,
             modifier = Modifier
                 .fillMaxSize()
-                .weight(5f)
-        ) { index ->
-            PagerScreen(page = pages[index])
-        }
+                .weight(5f),
+            state = pagerState,
+            pageSpacing = 0.dp,
+            userScrollEnabled = true,
+            reverseLayout = false,
+            contentPadding = PaddingValues(0.dp),
+            beyondBoundsPageCount = 0,
+            pageSize = PageSize.Fill,
+            pageContent = {
+                PagerScreen(page = pages[it])
+            }
+        )
         Column(
             modifier = Modifier
                 .fillMaxWidth()

@@ -1,5 +1,8 @@
 package com.hasancbngl.herocomposeapp.presentation.screens.details.components
 
+import android.util.Log
+import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -15,15 +18,18 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.hasancbngl.herocomposeapp.R
 import com.hasancbngl.herocomposeapp.ui.theme.INFO_ICON_SIZE
+import com.hasancbngl.herocomposeapp.ui.theme.LARGE_PADDING
 import com.hasancbngl.herocomposeapp.ui.theme.MIN_BACKGROUND_IMAGE_HEIGHT
 import com.hasancbngl.herocomposeapp.ui.theme.SMALL_PADDING
 import com.hasancbngl.herocomposeapp.util.Constants.BASE_URL
@@ -35,7 +41,10 @@ fun BackgroundContent(
     backgroundColor: Color = MaterialTheme.colorScheme.surface,
     onCloseClicked: () -> Unit
 ) {
+    Log.e("TAG", "BackgroundContent: $imageFraction", )
     val imageUrl = "$BASE_URL${heroImage}"
+    val animateScale by animateFloatAsState(targetValue = imageFraction)
+
 
     Box(
         modifier = Modifier
@@ -45,7 +54,7 @@ fun BackgroundContent(
         AsyncImage(
             modifier = Modifier
                 .fillMaxWidth()
-                .fillMaxHeight(fraction = imageFraction + MIN_BACKGROUND_IMAGE_HEIGHT)
+                .fillMaxHeight(fraction = animateScale + MIN_BACKGROUND_IMAGE_HEIGHT)
                 .align(Alignment.TopStart),
             model = imageUrl,
             contentDescription = "",
