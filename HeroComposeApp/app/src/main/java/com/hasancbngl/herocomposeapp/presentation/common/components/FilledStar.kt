@@ -12,6 +12,8 @@ import androidx.compose.ui.graphics.drawscope.scale
 import androidx.compose.ui.graphics.drawscope.translate
 import androidx.compose.ui.graphics.vector.PathParser
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -28,6 +30,9 @@ fun FilledStar(
     val starColor = MaterialTheme.colorScheme.starColor
     Canvas(
         modifier = Modifier
+            .semantics {
+                contentDescription = "FilledStar"
+            }
             .size(starSize)
     ) {
         scale(scale = scaleFactor) {
