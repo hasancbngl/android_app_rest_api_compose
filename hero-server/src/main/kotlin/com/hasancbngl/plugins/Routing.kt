@@ -1,6 +1,7 @@
 package com.hasancbngl.plugins
 
 import com.hasancbngl.routes.getAllHeroes
+import com.hasancbngl.routes.getAllHeroesAlternative
 import com.hasancbngl.routes.root
 import com.hasancbngl.routes.searchHeroes
 import io.ktor.server.application.*
@@ -13,6 +14,7 @@ fun Application.configureRouting() {
         //root '/' endpoint
         root()
         getAllHeroes()
+        getAllHeroesAlternative()
         searchHeroes()
         //specify the static content for images to be accessible from url
         staticResources("/images", "images"){}
